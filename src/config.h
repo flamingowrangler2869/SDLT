@@ -1,7 +1,7 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
-extern SDL_Event event;
+SDL_Event event;
 
 // window width and height
 #define WIN_WIDTH  800
