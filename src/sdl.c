@@ -42,8 +42,8 @@ int main() {
 	for (int x = 0; x < mw; x++) {
 		for (int y = 0; y < mh; y++) {
 			if (map[x][y] == P) {
-				plrX = rw*x;
-				plrY = rh*y;
+				plrX = rh*y;
+				plrY = rw*x;
 			}
 		}
 	}
