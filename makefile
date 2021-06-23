@@ -1,4 +1,4 @@
 all: main
 
 main:
-	cc sdl.c utils.c -lSDL2 -lm -o sdl && ./sdl
+	cc src/*.c -lSDL2 -lm -o bin/sdl && bin/sdl
