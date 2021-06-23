@@ -57,23 +57,26 @@ int main() {
 			if (event.type == SDL_KEYDOWN) {
 				switch (event.key.keysym.sym) {
 					case SDLK_ESCAPE: return 0; break; // close on escape
+					 // up
 					case SDLK_w:
 					case SDLK_UP:
-						if (plrY != 0)				plrY -= rh; // up
+						if (plrY != 0) plrY -= rh;
 						break;
+					// down
 					case SDLK_s:
 					case SDLK_DOWN:
-						if (plrY != WIN_HEIGHT-rh)	plrY += rh; // down
+						if (plrY != WIN_HEIGHT-rh)	plrY += rh;
 						break;
+					// left
 					case SDLK_a:
 					case SDLK_LEFT:
-						if (plrX != 0)				plrX -= rw; // left
+						if (plrX != 0) plrX -= rw;
 						break;
+					// right
 					case SDLK_d:
 					case SDLK_RIGHT:
-						if (plrX != WIN_WIDTH-rw)	plrX += rw; // right
+						if (plrX != WIN_WIDTH-rw)	plrX += rw; 
 						break;
-
 				}
 			}
 		}
