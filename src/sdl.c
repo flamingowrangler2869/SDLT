@@ -12,17 +12,17 @@
 const char map[16][16] = {
     {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
     {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+    {0,P,W,R,G,B,V,0,0,0,0,0,0,0,0,0},
+    {0,0,0,0,0,0,0,W,0,0,0,0,0,0,0,0},
+    {0,0,0,0,0,0,0,W,0,0,0,0,0,0,0,0},
+    {0,0,0,0,0,0,0,W,0,0,0,0,0,0,0,0},
+    {0,0,0,0,0,0,0,W,0,0,0,0,0,0,0,0},
+    {0,0,W,W,W,W,W,W,W,W,W,W,W,0,0,0},
+    {0,0,0,0,0,0,0,W,0,0,0,0,0,0,0,0},
+    {0,0,0,0,0,0,0,W,0,0,0,0,0,0,0,0},
+    {0,0,0,0,0,0,0,W,0,0,0,0,0,0,0,0},
+    {0,0,0,0,0,0,0,W,0,0,0,0,0,0,0,0},
+    {0,0,0,0,0,0,0,W,0,0,0,0,0,0,0,0},
     {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
     {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
     {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
@@ -48,8 +48,11 @@ int main() {
 		}
 	}
 
+	// main loop
 	bool running = true;
 	while (running) {
+
+		// event loop
 		while (SDL_PollEvent(&event)) {
 			if (event.type == SDL_QUIT) running = false;
 			// keyboard controls
@@ -83,39 +86,37 @@ int main() {
 		set_draw_color(0, 0, 0); // set background color
 		render_clear();
 
-		{
-			for (int x = 0; x < mw; x++) {
-				for (int y = 0; y < mh; y++) {
-					switch (map[x][y]) {
-						case W:
-							set_draw_color(86, 98, 246); // wall color
-							break;
-						case R:
-							set_draw_color(240, 36, 24); // red tile color
-							break;
-						case G:
-							set_draw_color(59, 195, 9); 	// green tile color
-							break;
-						case B:
-							set_draw_color(0, 117, 196); // blue tile color
-							break;
-						case V:
-							set_draw_color(242, 242, 242); // B tile color
-							break;
-						default:
-							set_draw_color(0, 0, 0); // background color
-							break;
-					}
-					fill_rect(rh*y, rw*x, rw, rh);
+		// scans through the map and draws colored squares
+		for (int x = 0; x < mw; x++) {
+			for (int y = 0; y < mh; y++) {
+				switch (map[x][y]) {
+					case W:
+						set_draw_color(86, 98, 246);   // wall color
+						break;
+					case R:
+						set_draw_color(240, 36, 24);   // red tile color
+						break;
+					case G:
+						set_draw_color(59, 195, 9);    // green tile color
+						break;
+					case B:
+						set_draw_color(0, 117, 196);   // blue tile color
+						break;
+					case V:
+						set_draw_color(242, 242, 242); // B tile color
+						break;
+					default:
+						set_draw_color(0, 0, 0); 	   // background color
+						break;
 				}
+				fill_rect(rh*y, rw*x, rw, rh);
 			}
-
-			set_draw_color(236, 207, 55); // set player color
-			fill_rect(plrX, plrY, plrW, plrH); // draw player
 		}
 
-		render_present(); // display the things
-	}
+		set_draw_color(236, 207, 55); // set player color
+		fill_rect(plrX, plrY, plrW, plrH); // draw player
 
+		render_present(); // display everything
+	}
 	destroyGFX(); // clean up sdl
 }

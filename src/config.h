@@ -13,7 +13,7 @@ SDL_Event event;
 
 // map objects
 #define P -1	// player start
-#define W 1		// wall
+#define W 1		// purple wall
 #define R 2		// red tile
 #define G 3		// green tile
 #define B 4		// blue tile
