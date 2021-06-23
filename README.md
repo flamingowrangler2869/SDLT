@@ -3,4 +3,4 @@ shitty sdl test
 
 just say `make` and it does the thing
 
-wasd to move the gamer
+wasd or arrow keys to move the gamer
