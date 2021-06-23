@@ -55,11 +55,26 @@ int main() {
 			
 			// keyboard controls
 			if (event.type == SDL_KEYDOWN) {
-				if (event.key.keysym.sym == SDLK_ESCAPE) return 0; // close on escape
-				if (event.key.keysym.sym == SDLK_w && plrY != 0)				plrY -= rh; // up
-				if (event.key.keysym.sym == SDLK_s && plrY != WIN_HEIGHT-rh)	plrY += rh; // down
-				if (event.key.keysym.sym == SDLK_a && plrX != 0)				plrX -= rw; // left
-				if (event.key.keysym.sym == SDLK_d && plrX != WIN_WIDTH-rw)		plrX += rw; // right
+				switch (event.key.keysym.sym) {
+					case SDLK_ESCAPE: return 0; break; // close on escape
+					case SDLK_w:
+					case SDLK_UP:
+						if (plrY != 0)				plrY -= rh; // up
+						break;
+					case SDLK_s:
+					case SDLK_DOWN:
+						if (plrY != WIN_HEIGHT-rh)	plrY += rh; // down
+						break;
+					case SDLK_a:
+					case SDLK_LEFT:
+						if (plrX != 0)				plrX -= rw; // left
+						break;
+					case SDLK_d:
+					case SDLK_RIGHT:
+						if (plrX != WIN_WIDTH-rw)	plrX += rw; // right
+						break;
+
+				}
 			}
 		}
 

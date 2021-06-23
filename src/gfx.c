@@ -4,12 +4,13 @@ SDL_Renderer* renderer = NULL;
 SDL_Window* win = NULL;
 
 int initGFX(char* title, int width, int height) {
+
 	// initialize sdl
 	SDL_Init(SDL_INIT_VIDEO);
 
 	// create window
 	win = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_OPENGL);
-
+	// create renderer
 	renderer = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 }
 
