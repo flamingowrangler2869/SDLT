@@ -12,9 +12,12 @@ SDL_Event event;
 #define cy WIN_HEIGHT/2
 
 // map objects
-#define W 1		// wall
-#define B 2		// B tile
 #define P -1	// player start
+#define W 1		// wall
+#define R 2		// red tile
+#define G 3		// green tile
+#define B 4		// blue tile
+#define V 5 	// light grey tile
 
 // map size
 #define mw WIN_WIDTH/rw

@@ -15,6 +15,7 @@ const char map[16][16] = {
     {W,0,0,0,0,0,0,0,0,0,0,0,0,0,0,W},
     {W,0,0,0,0,0,0,0,0,0,0,0,0,0,0,W},
     {W,0,0,0,0,0,0,0,0,0,0,0,0,0,0,W},
+    {W,0,P,W,R,G,B,V,0,0,0,0,0,0,0,W},
     {W,0,0,0,0,0,0,0,0,0,0,0,0,0,0,W},
     {W,0,0,0,0,0,0,0,0,0,0,0,0,0,0,W},
     {W,0,0,0,0,0,0,0,0,0,0,0,0,0,0,W},
@@ -24,7 +25,6 @@ const char map[16][16] = {
     {W,0,0,0,0,0,0,0,0,0,0,0,0,0,0,W},
     {W,0,0,0,0,0,0,0,0,0,0,0,0,0,0,W},
     {W,0,0,0,0,0,0,0,0,0,0,0,0,0,0,W},
-    {W,B,0,0,0,0,0,0,0,0,0,0,0,0,0,W},
     {W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W}
 };
 
@@ -73,8 +73,17 @@ int main() {
 						case W:
 							set_draw_color(86, 98, 246); // wall color
 							break;
+						case R:
+							set_draw_color(240, 36, 24); // red tile color
+							break;
+						case G:
+							set_draw_color(59, 195, 9); 	// green tile color
+							break;
 						case B:
-							set_draw_color(0xFF, 0, 0); // B tile color
+							set_draw_color(0, 117, 196); // blue tile color
+							break;
+						case V:
+							set_draw_color(242, 242, 242); // B tile color
 							break;
 						default:
 							set_draw_color(0, 0, 0); // background color
