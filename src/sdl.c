@@ -28,6 +28,19 @@ const char map[16][16] = {
     {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
 };
 
+char collision(int plrX, int plrY, const char map[16][16]) {
+	for (int x = 0; x < mw; x++) {
+		for (int y = 0; y < mh; y++) {
+			if (map[x][y] != 0) {
+				if (x - plrX == rw) return 1; // player is on the right
+				if (plrX - x == rw) return 2; // player is on the left
+				if (y - plrY == rh) return 3; // player is above
+				if (plrY - y == rh) return 4; // player is below
+			}
+		}
+	}
+}
+
 int main() {
 
 	initGFX("window", WIN_WIDTH, WIN_HEIGHT);
@@ -62,22 +75,22 @@ int main() {
 					 // up
 					case SDLK_w:
 					case SDLK_UP:
-						if (plrY != 0) plrY -= rh;
+						if (plrY != 0 && collision(plrX, plrY, map) != 4) plrY -= rh;
 						break;
 					// down
 					case SDLK_s:
 					case SDLK_DOWN:
-						if (plrY != WIN_HEIGHT-rh)	plrY += rh;
+						if (plrY != WIN_HEIGHT-rh && collision(plrX, plrY, map) != 3) plrY += rh;
 						break;
 					// left
 					case SDLK_a:
 					case SDLK_LEFT:
-						if (plrX != 0) plrX -= rw;
+						if (plrX != 0 && collision(plrX, plrY, map) != 2) plrX -= rw;
 						break;
 					// right
 					case SDLK_d:
 					case SDLK_RIGHT:
-						if (plrX != WIN_WIDTH-rw)	plrX += rw; 
+						if (plrX != WIN_WIDTH-rw && collision(plrX, plrY, map) != 1) plrX += rw; 
 						break;
 				}
 			}
@@ -86,24 +99,24 @@ int main() {
 		set_draw_color(0, 0, 0); // set background color
 		render_clear();
 
-		// scans through the map and draws colored squares
+		// scans through the map and draws colored squares█
 		for (int x = 0; x < mw; x++) {
 			for (int y = 0; y < mh; y++) {
 				switch (map[x][y]) {
 					case W:
-						set_draw_color(86, 98, 246);   // wall color
+						set_draw_color(223, 102, 200);  // wall color
 						break;
 					case R:
 						set_draw_color(240, 36, 24);   // red tile color
 						break;
 					case G:
-						set_draw_color(59, 195, 9);    // green tile color
+						set_draw_color(106, 153, 85);  // green tile color
 						break;
 					case B:
 						set_draw_color(0, 117, 196);   // blue tile color
 						break;
 					case V:
-						set_draw_color(242, 242, 242); // B tile color
+						set_draw_color(242, 242, 242); // white tile color
 						break;
 					default:
 						set_draw_color(0, 0, 0); 	   // background color
