@@ -10,35 +10,33 @@
 #include "config.h"
 
 const char map[16][16] = {
-    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-    {0,P,W,R,G,B,V,0,0,0,0,0,0,0,0,0},
-    {0,0,0,0,0,0,0,W,0,0,0,0,0,0,0,0},
-    {0,0,0,0,0,0,0,W,0,0,0,0,0,0,0,0},
-    {0,0,0,0,0,0,0,W,0,0,0,0,0,0,0,0},
-    {0,0,0,0,0,0,0,W,0,0,0,0,0,0,0,0},
-    {0,0,W,W,W,W,W,W,W,W,W,W,W,0,0,0},
-    {0,0,0,0,0,0,0,W,0,0,0,0,0,0,0,0},
-    {0,0,0,0,0,0,0,W,0,0,0,0,0,0,0,0},
-    {0,0,0,0,0,0,0,W,0,0,0,0,0,0,0,0},
-    {0,0,0,0,0,0,0,W,0,0,0,0,0,0,0,0},
-    {0,0,0,0,0,0,0,W,0,0,0,0,0,0,0,0},
-    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
+	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+	{0,P,W,R,G,B,V,0,0,0,0,0,0,0,0,0},
+	{0,0,0,0,0,0,0,W,0,0,0,0,0,0,0,0},
+	{0,0,0,0,0,0,0,W,0,0,0,0,0,0,0,0},
+	{0,0,0,0,0,0,0,W,0,0,0,0,0,0,0,0},
+	{0,0,0,0,0,0,0,W,0,0,0,0,0,0,0,0},
+	{0,0,W,W,W,W,W,W,W,W,W,W,W,0,0,0},
+	{0,0,0,0,0,0,0,W,0,0,0,0,0,0,0,0},
+	{0,0,0,0,0,0,0,W,0,0,0,0,0,0,0,0},
+	{0,0,0,0,0,0,0,W,0,0,0,0,0,0,0,0},
+	{0,0,0,0,0,0,0,W,0,0,0,0,0,0,0,0},
+	{0,0,0,0,0,0,0,W,0,0,0,0,0,0,0,0},
+	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
 };
 
-char collision(int plrX, int plrY, const char map[16][16]) {
-	for (int x = 0; x < mw; x++) {
-		for (int y = 0; y < mh; y++) {
-			if (map[x][y] != 0) {
-				if (x - plrX == rw) return 1; // player is on the right
-				if (plrX - x == rw) return 2; // player is on the left
-				if (y - plrY == rh) return 3; // player is above
-				if (plrY - y == rh) return 4; // player is below
-			}
-		}
-	}
+char collision(int plrX, int plrY) {
+
+	plrX /= rw;
+	plrY /= rh;
+	
+	if (map[plrX][plrY-1] != 0) { return 4; }
+	if (map[plrX][plrY+1] != 0) { return 3; }
+	if (map[plrX-1][plrY] != 0) { return 2; }
+	if (map[plrX+1][plrY] != 0) { return 1; }
 }
 
 int main() {
@@ -70,27 +68,28 @@ int main() {
 			if (event.type == SDL_QUIT) running = false;
 			// keyboard controls
 			if (event.type == SDL_KEYDOWN) {
+				printf("%d %d %d\n", plrX/50, plrY/50, map[plrX/50][plrY/50]);
 				switch (event.key.keysym.sym) {
 					case SDLK_ESCAPE: return 0; break; // close on escape
 					 // up
 					case SDLK_w:
 					case SDLK_UP:
-						if (plrY != 0 && collision(plrX, plrY, map) != 4) plrY -= rh;
+						if (plrY != 0 && collision(plrX, plrY) != 4) plrY -= rh;
 						break;
 					// down
 					case SDLK_s:
 					case SDLK_DOWN:
-						if (plrY != WIN_HEIGHT-rh && collision(plrX, plrY, map) != 3) plrY += rh;
+						if (plrY != WIN_HEIGHT-rh && collision(plrX, plrY) != 3) plrY += rh;
 						break;
 					// left
 					case SDLK_a:
 					case SDLK_LEFT:
-						if (plrX != 0 && collision(plrX, plrY, map) != 2) plrX -= rw;
+						if (plrX != 0 && collision(plrX, plrY) != 2) plrX -= rw;
 						break;
 					// right
 					case SDLK_d:
 					case SDLK_RIGHT:
-						if (plrX != WIN_WIDTH-rw && collision(plrX, plrY, map) != 1) plrX += rw; 
+						if (plrX != WIN_WIDTH-rw && collision(plrX, plrY) != 1) plrX += rw; 
 						break;
 				}
 			}
@@ -98,6 +97,7 @@ int main() {
 
 		set_draw_color(0, 0, 0); // set background color
 		render_clear();
+
 
 		// scans through the map and draws colored squares█
 		for (int x = 0; x < mw; x++) {
